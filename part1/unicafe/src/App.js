@@ -8,9 +8,22 @@ const Button = ({handleClick, text}) => {
 }
 
 const Statistics = ({good, neutral, bad}) => {
+  const hasFeedback = good !== 0 || neutral !== 0 || bad !== 0;
+
   const all = good + neutral + bad;
   const average = (good - bad) / all; // NaN if all === 0.
   const positive = good / all; // NaN if all === 0.
+
+  if(!hasFeedback) {
+    return (
+      <>
+        <h1>statistics</h1>
+        <p>
+          No feedback given
+        </p>
+      </> 
+    )
+  }
 
   return (
     <>
@@ -43,8 +56,6 @@ const App = () => {
     setBad(bad + 1);
   }
 
-
-  
   return (
     <>
       <div>
