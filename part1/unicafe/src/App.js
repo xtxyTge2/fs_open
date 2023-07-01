@@ -1,11 +1,9 @@
 import { useState } from 'react'
 
 
-const Button = ({handleClick, text}) => {
-  return (
-    <button onClick={handleClick}>{text}</button>
-  )
-}
+const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</button>
+
+const StatisticsLine = ({text, value}) => <div>{text} {value}</div>
 
 const Statistics = ({good, neutral, bad}) => {
   const hasFeedback = good !== 0 || neutral !== 0 || bad !== 0;
@@ -28,12 +26,12 @@ const Statistics = ({good, neutral, bad}) => {
   return (
     <>
       <h1>statistics</h1>
-      <div>good {good}</div>
-      <div>neutral {neutral}</div>
-      <div>bad {bad}</div>
-      <div>all {all}</div>
-      <div>average {average}</div>
-      <div>positive {positive} %</div>
+      <StatisticsLine text="good" value={good}></StatisticsLine>
+      <StatisticsLine text="neutral" value={neutral}></StatisticsLine>
+      <StatisticsLine text="bad" value={bad}></StatisticsLine>
+      <StatisticsLine text="all" value={all}></StatisticsLine>
+      <StatisticsLine text="average" value={average}></StatisticsLine>
+      <StatisticsLine text="positive (in %)" value={positive}></StatisticsLine>
     </>
   )
 }
