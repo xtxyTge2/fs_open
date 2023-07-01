@@ -14,19 +14,32 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
   
+  const [votes, setVotes] = useState(new Uint8Array(anecdotes.length - 1));
+
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
-  } 
+  };
 
   const [selected, setSelected] = useState(getRandomInt(anecdotes.length - 1));
 
   const selectNextRandomAnectdote = () => {
     setSelected(getRandomInt(anecdotes.length - 1));
-  }
+  };
+
+  const voteForSelectedAnecdote = () => {
+     const copy = [...votes];
+     copy[selected] += 1;
+
+     setVotes(copy);
+  };
 
   return (
     <div>
       <p>{anecdotes[selected]}</p>
+      <div>
+        has {votes[selected]} votes
+      </div>
+      <Button clickedHandler={voteForSelectedAnecdote} text='vote'></Button>
       <Button clickedHandler={selectNextRandomAnectdote} text='next anectdote'></Button>
     </div>
   )
