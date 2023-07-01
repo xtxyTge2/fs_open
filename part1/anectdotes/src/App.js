@@ -1,5 +1,16 @@
 import { useState } from 'react'
 
+
+const Anectdote = ({text, vote}) => {
+  return (
+    <div>
+      <b>{text}</b>
+      <br></br>
+      has {vote} votes
+    </div>
+  )
+}
+
 const Button = ({clickedHandler, text}) => <button onClick={clickedHandler}>{text}</button>
 
 const App = () => {
@@ -33,14 +44,30 @@ const App = () => {
      setVotes(copy);
   };
 
+  const getMostVotedAnectdoteIndex = () => {
+    let maxVotes = 0;
+    let maxVotesIndex = -1;
+    for(let i = 0; i < votes.length; i++) {
+        if(votes[i] >= maxVotes) {
+          maxVotes = votes[i];
+          maxVotesIndex = i;
+        }
+    }
+    return maxVotesIndex;
+  }
+
+  const maxVotesIndex = getMostVotedAnectdoteIndex();
+  const maxVoteAnectdoteText = anecdotes[maxVotesIndex];
+  const maxVote = votes[maxVotesIndex];
+
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
-      <div>
-        has {votes[selected]} votes
-      </div>
+      <h1>Anectdote of the day</h1>
+      <Anectdote text={anecdotes[selected]} vote={votes[selected]}></Anectdote>
       <Button clickedHandler={voteForSelectedAnecdote} text='vote'></Button>
       <Button clickedHandler={selectNextRandomAnectdote} text='next anectdote'></Button>
+      <h1>Anectdote with most votes</h1>
+      <Anectdote text={maxVoteAnectdoteText} vote={maxVote}></Anectdote>
     </div>
   )
 }
